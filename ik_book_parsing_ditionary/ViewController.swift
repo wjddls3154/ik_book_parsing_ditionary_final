@@ -14,11 +14,15 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
     var item:[String:String] = [:]
     var elements:[[String:String]] = []
     var currentElement = ""
+    //배열 지정
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         myTableView.delegate = self
         myTableView.dataSource = self
+        
+        //delegate , datasource 연결
         
         if let path = Bundle.main.url(forResource: "book", withExtension: "xml") {
             if let parser = XMLParser(contentsOf: path) {
@@ -32,7 +36,7 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
                 print("parse failed")
             }
         } else {
-            print("xml file not found")
+            print("xml not found")
         }
     }
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -61,8 +65,11 @@ class ViewController: UIViewController, XMLParserDelegate, UITableViewDelegate, 
         let myItem = elements[indexPath.row]
         let title = cell.viewWithTag(1) as! UILabel
         let author = cell.viewWithTag(2) as! UILabel
-        title.text = myItem["title"]
-        author.text = myItem["author"]
+        //태그 번호에 해당하는 정보 호출
+        
+        title.text = myItem["title"] //text에 title 저장
+        author.text = myItem["author"]  //text에 author 저장
         return cell
+        
     }
 }
